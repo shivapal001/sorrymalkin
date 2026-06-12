@@ -12,17 +12,17 @@ import CustomizerModal from "./components/CustomizerModal";
 import ConfettiShower from "./components/ConfettiShower";
 import { playHeartChime } from "./utils/audioSynth";
 
-// Default configuration with a romantic Hinglish setup
+// Default configuration with Alishaaa and shivu
 const DEFAULT_CONFIG: AppConfig = {
-  gfName: "My Queen 👑",
-  bfName: "Your Partner 🧸",
+  gfName: "Alishaaa",
+  bfName: "shivu",
   sorryLetter: `Mujhe pata hai aap mujhse gussa ho, aur jab tak aap gusse me ho, mera din bilkul adhura hai. I am really, really sorry for my mistakes. 
 
 Meri koi intention nahi thi aapka dil dukhane ki. Aap mere liye kitni special ho ye me sabdo me bayaan nahi kar sakta. Mera sabse bada sukoon aapka muskurana hai, aur jab aap gussa hoti ho toh dhakan rukh jaati h.
 
 Please mujhe maaf kar do, Cutie! Ek pyaari si smile de do ab please! I love you so much! 🥺💖`,
   songUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-  customPhoto: "", // empty means fallback to sweet couple SVG
+  customPhoto: "https://www.image2url.com/r2/default/images/1781267411585-8c04ffe7-1acf-4e11-bcbe-7959242c3169.jpg", // custom photo provided by the user
   memories: [
     {
       id: "1",
@@ -99,10 +99,19 @@ export default function App() {
     const saved = localStorage.getItem("romantic_sorry_config");
     if (saved) {
       try {
-        setConfig(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        if (parsed.gfName === "My Queen 👑" || parsed.gfName === "My Queen" || !parsed.gfName || parsed.gfName === "Alishaaa" || parsed.gfName === "shivu") {
+          // Reset to newest default config including Alishaaa's portrait
+          setConfig(DEFAULT_CONFIG);
+          localStorage.removeItem("romantic_sorry_config");
+        } else {
+          setConfig(parsed);
+        }
       } catch (e) {
         console.error(e);
       }
+    } else {
+      setConfig(DEFAULT_CONFIG);
     }
   }, []);
 
