@@ -203,7 +203,7 @@ export default function App() {
         <div className="flex items-center gap-2">
           <Heart className="w-6 h-6 text-rose-500 fill-rose-500 animate-pulse" />
           <span className="font-serif font-bold text-slate-800 text-lg sm:text-xl tracking-wide">
-            Meri Sorry Sweetheart Card 💌
+            Sorry Malkin 💌
           </span>
         </div>
 
