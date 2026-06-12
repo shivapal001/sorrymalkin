@@ -211,6 +211,17 @@ export default function CustomizerModal({ isOpen, onClose, config, onUpdateConfi
                 </div>
               </div>
 
+              {/* Vercel Share Tip banner */}
+              <div id="vercel-share-banner-tip" className="bg-emerald-50 border border-emerald-100 p-4 rounded-xl flex items-start gap-2.5">
+                <span className="text-lg">🚀</span>
+                <div className="space-y-0.5">
+                  <h4 className="text-xs font-bold text-emerald-800 font-sans">Saras Vercel Sharing Tip!</h4>
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    Customizations made here save in your local browser. To share this customized template with your girlfriend on Vercel, just click the <strong>&quot;Copy GF Link 🔗&quot;</strong> button in the top header. She will open your letters, names, and images instantly on her phone!
+                  </p>
+                </div>
+              </div>
+
               {/* API Gemini Assistant block */}
               <div className="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-5 border border-rose-100">
                 <div className="flex items-center gap-1.5 text-rose-700 font-bold mb-3">
@@ -436,21 +447,31 @@ export default function CustomizerModal({ isOpen, onClose, config, onUpdateConfi
                     <p className="text-xs text-slate-600 font-medium">
                       Configure a custom photo to display on her digital love frame!
                     </p>
-                    <div className="flex flex-col gap-1.5">
-                      <label className="bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 px-3 py-1.5 rounded-lg text-xs font-bold text-center cursor-pointer transition-colors">
+                    <div className="flex flex-col gap-1.5 matches-relative">
+                      <label className="bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 px-3 py-1.5 rounded-lg text-xs font-bold text-center cursor-pointer transition-colors block">
                         Choose local picture file (png, jpg, etc.)
                         <input
+                          id="local-file-photo-input"
                           type="file"
                           accept="image/*"
                           onChange={handlePhotoUpload}
                           className="hidden"
                         />
                       </label>
+                      <input
+                        id="web-image-link-input"
+                        type="text"
+                        value={localConfig.customPhoto && !localConfig.customPhoto.startsWith("data:") ? localConfig.customPhoto : ""}
+                        onChange={(e) => setLocalConfig({ ...localConfig, customPhoto: e.target.value })}
+                        placeholder="Or Paste any Image Web Link (E.g. Imgur, Postimages)"
+                        className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs focus:ring-1 focus:ring-rose-200 outline-none font-sans"
+                      />
                       {localConfig.customPhoto && (
                         <button
+                          id="reset-portrait-button"
                           type="button"
                           onClick={() => setLocalConfig({ ...localConfig, customPhoto: "" })}
-                          className="text-[10px] text-red-500 hover:underline font-bold text-center"
+                          className="text-[10px] text-red-500 hover:underline font-bold text-center mt-1"
                         >
                           Reset to default portrait
                         </button>

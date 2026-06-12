@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
-  Heart, Sparkles, Settings, Gift, RefreshCw, Star, Info, Smile, CheckCircle, Flame
+  Heart, Sparkles, Settings, Gift, RefreshCw, Star, Info, Smile, CheckCircle, Flame, Share2, Link
 } from "lucide-react";
 import { AppConfig, MemoryItem, GiftStatus } from "./types";
 import EnvelopeLetter from "./components/EnvelopeLetter";
@@ -69,8 +69,33 @@ export default function App() {
     "Unlimited hugs chaiye kya? 🤗"
   ];
 
+  const [copiedStatus, setCopiedStatus] = useState(false);
+
   // Load custom configurations on startup
   useEffect(() => {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith("#love=")) {
+      try {
+        const encodedConfig = hash.substring(6);
+        const decodedStr = decodeURIComponent(
+          atob(encodedConfig)
+            .split("")
+            .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+            .join("")
+        );
+        const decodedConfig = JSON.parse(decodedStr);
+        if (decodedConfig && (decodedConfig.gfName || decodedConfig.sorryLetter)) {
+          setConfig(decodedConfig);
+          localStorage.setItem("romantic_sorry_config", JSON.stringify(decodedConfig));
+          window.location.hash = "";
+          alert("Surprise Loaded! 💖 Your partner sent you this customized love letter or sorry message.");
+          return;
+        }
+      } catch (e) {
+        console.error("Failed to parse shared config from URL hash", e);
+      }
+    }
+
     const saved = localStorage.getItem("romantic_sorry_config");
     if (saved) {
       try {
@@ -91,6 +116,37 @@ export default function App() {
     setConfig(DEFAULT_CONFIG);
     setIsForgiven(false);
     playHeartChime();
+  };
+
+  const handleCopyShareLink = () => {
+    let configToShare = { ...config };
+    
+    // Check if image is huge base64
+    if (configToShare.customPhoto && configToShare.customPhoto.startsWith("data:")) {
+      const confirmOk = window.confirm(
+        "Aapne profile picture/photo computer se upload kiya h, which makes the shareable link too huge to send inside chat. For best results, edit karke Image Web Link paste karein. Do you still want to generate the link?"
+      );
+      if (!confirmOk) return;
+    }
+
+    try {
+      const jsonStr = JSON.stringify(configToShare);
+      const encoded = btoa(
+        encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, (match, p1) => {
+          return String.fromCharCode(parseInt(p1, 16));
+        })
+      );
+      const shareUrl = `${window.location.origin}${window.location.pathname}#love=${encoded}`;
+      
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        setCopiedStatus(true);
+        playHeartChime();
+        setTimeout(() => setCopiedStatus(false), 3000);
+      });
+    } catch (e) {
+      console.error(e);
+      alert("Failed to build shareable link. Please copy the URL from browser or try again!");
+    }
   };
 
   const handleForgiven = () => {
@@ -154,6 +210,29 @@ export default function App() {
         {/* Dashboard & Settings button toggler overlay */}
         <div className="flex items-center gap-2.5">
           <button
+            id="share-link-header-btn"
+            onClick={handleCopyShareLink}
+            className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              copiedStatus 
+                ? "bg-emerald-100 text-emerald-700 border border-emerald-300 animate-pulse" 
+                : "bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white shadow-sm hover:shadow"
+            }`}
+            title="Generate custom link for your girlfriend"
+          >
+            {copiedStatus ? (
+              <>
+                <CheckCircle className="w-3.5 h-3.5" />
+                <span>Link Copied! 💖</span>
+              </>
+            ) : (
+              <>
+                <Share2 className="w-3.5 h-3.5" />
+                <span>Copy GF Link 🔗</span>
+              </>
+            )}
+          </button>
+          <button
+            id="reset-defaults-header-btn"
             onClick={handleResetToDefaults}
             className="flex items-center gap-1 px-3 py-1.5 bg-slate-50 hover:bg-slate-100 text-slate-500 rounded-full border border-slate-200 text-xs font-bold transition-all cursor-pointer"
             title="Reset to default voice template"
@@ -162,6 +241,7 @@ export default function App() {
             <span className="hidden sm:inline">Reset Defaults</span>
           </button>
           <button
+            id="customize-values-header-btn"
             onClick={() => setIsCustomizerOpen(true)}
             className="flex items-center gap-1.5 px-4 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-full border border-rose-200 text-sm font-bold shadow-xs hover:shadow transition-all cursor-pointer"
           >
