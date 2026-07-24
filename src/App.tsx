@@ -10,40 +10,57 @@ import GiftShop from "./components/GiftShop";
 import MusicVinyl from "./components/MusicVinyl";
 import CustomizerModal from "./components/CustomizerModal";
 import ConfettiShower from "./components/ConfettiShower";
+import SilenceTracker from "./components/SilenceTracker";
+import PromisesUnfold from "./components/PromisesUnfold";
+import ReunionGame from "./components/ReunionGame";
 import { playHeartChime } from "./utils/audioSynth";
 
-// Default configuration with Alishaaa and shivu
+// Default configuration with Alishaaa and shivu - 1 Month Silence & Apology Story
 const DEFAULT_CONFIG: AppConfig = {
   gfName: "Alishaaa",
   bfName: "shivu",
-  sorryLetter: `Mujhe pata hai aap mujhse gussa ho, aur jab tak aap gusse me ho, mera din bilkul adhura hai. I am really, really sorry for my mistakes. 
+  sorryLetter: `Alishaaa, 1 mahina ho gaya hai hamari baat huye... Aur is poore ek mahine ne mujhe andar tak tod ke rakh diya hai. Mujhe acche se samajh aa gaya ki tumhare bina mera koi wajood nahi hai.
 
-Meri koi intention nahi thi aapka dil dukhane ki. Aap mere liye kitni special ho ye me sabdo me bayaan nahi kar sakta. Mera sabse bada sukoon aapka muskurana hai, aur jab aap gussa hoti ho toh dhakan rukh jaati h.
+Mujhse bahut badi galti hui, humare beech itni badi ladai ho gayi, par sach yeh hai ki mera har ek din, har ek lamha tumhare bina adhura aur sunsaan hai. Main har pal tumhari aawaz sunne ke liye, tumhara naam sunne ke liye tarasta hoon.
 
-Please mujhe maaf kar do, Cutie! Ek pyaari si smile de do ab please! I love you so much! 🥺💖`,
+Is poore jahan mein mujhe aur kuch nahi chahiye Alishaaa... Mujhe bas TUM chahiye. Please saare gusse ko pighla do, Shivu ko maaf kar do. Ek baar bas bol do ki sab theek hai... I love you more than words can ever say! 🥺💖`,
   songUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-  customPhoto: "https://www.image2url.com/r2/default/images/1781267411585-8c04ffe7-1acf-4e11-bcbe-7959242c3169.jpg", // custom photo provided by the user
+  customPhoto: "https://www.image2url.com/r2/default/images/1781267411585-8c04ffe7-1acf-4e11-bcbe-7959242c3169.jpg",
   memories: [
     {
       id: "1",
-      date: "The First Connection 💬",
+      date: "Peheli Mulakaat 💬",
       title: "Jab Hum Pehli Baar Mile",
-      description: "Starting our beautiful friendship through late-night texts, completely unaware how quickly we would become each other's world.",
+      description: "Starting our beautiful friendship through late-night texts, completely unaware how quickly we would become each other's entire universe.",
       emoji: "💬"
     },
     {
       id: "2",
       date: "Aapki Magical Voice 🎙️",
-      title: "Uski Voice... Ahyeeeee Hayeeeee! 💕",
-      description: "Sunte hi dilon ki saari dooriyan ek dum khatam ho jati hain. Sach me, aapki voice sunkar dil ko jo sukoon milta hai vo sabse pyaara hai!",
+      title: "Uski Voice... Magical! 💕",
+      description: "Sunte hi dilon ki saari dooriyan ek dum khatam ho jati hain. Shivu misses your sweet voice and laugh every single second.",
       emoji: "🎙️"
     },
     {
       id: "3",
-      date: "Late Night Gupshup 📞",
-      title: "Infinite Hour-Long Calls",
-      description: "When we talk till 4 AM in the morning about stars, our dreams, list of secrets, and yawn together.",
-      emoji: "✨"
+      date: "1 Mahine Pehle 💔",
+      title: "The Mistake & Big Fight",
+      description: "Hamare beech ek galti se badi ladai ho gayi, and our entire universe fell completely silent.",
+      emoji: "💔"
+    },
+    {
+      id: "4",
+      date: "30 Days of Darkness 🌙",
+      title: "1 Month Without Talking",
+      description: "30 days of complete silence proved to Shivu that life without Alishaaa is totally empty and meaningless.",
+      emoji: "🥺"
+    },
+    {
+      id: "5",
+      date: "Today & Always 💍",
+      title: "Shivu Asking Alishaaa Back",
+      description: "Holding my hands together and pledging 5 sacred promises so we never fight or go silent ever again.",
+      emoji: "❤️"
     }
   ]
 };
@@ -264,17 +281,17 @@ export default function App() {
       <main className="max-w-5xl mx-auto px-4 py-8 relative">
         
         {/* Intro Hero Frame Section */}
-        <div className="text-center space-y-4 mb-12">
+        <div className="text-center space-y-4 mb-8">
           
           {/* Couple Picture Frame */}
-          <div className="w-48 h-48 sm:w-56 sm:h-56 mx-auto rounded-3xl bg-pink-100/50 p-3 shadow-xl relative border-4 border-white ring-8 ring-rose-50/50 overflow-hidden transform hover:scale-103 transition-transform">
+          <div className="w-52 h-52 sm:w-64 sm:h-64 mx-auto rounded-3xl bg-pink-100/50 p-3 shadow-2xl relative border-4 border-white ring-8 ring-rose-50/50 overflow-hidden transform hover:scale-102 transition-transform">
             
             <AnimatePresence mode="wait">
               {config.customPhoto ? (
                 <motion.img
                   key="uploaded"
                   src={config.customPhoto}
-                  alt="Our Beautiful Moments"
+                  alt="Alishaaa and Shivu"
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover rounded-2xl"
                   initial={{ opacity: 0 }}
@@ -289,7 +306,6 @@ export default function App() {
                   animate={{ opacity: 1 }}
                 >
                   <svg viewBox="0 0 100 100" className="w-24 h-24 text-white drop-shadow-md">
-                    {/* Double Hearts intertwined */}
                     <path d="M35 55c5.3-5.3 14-5.3 19.3 0l.7.7.7-.7c5.3-5.3 14-5.3 19.3 0 5.3 5.3 5.3 14 0 19.3l-20 20-20-20c-5.3-5.3-5.3-14 0-19.3z" fill="#f43f5e" />
                     <path d="M15 35c5.3-5.3 14-5.3 19.3 0l.7.7.7-.7c5.3-5.3 14-5.3 19.3 0 5.3 5.3 5.3 14 0 19.3l-20 20-20-20c-5.3-5.3-5.3-14 0-19.3z" fill="#f472b6" opacity="0.9" />
                   </svg>
@@ -299,23 +315,28 @@ export default function App() {
             </AnimatePresence>
 
             {/* Sparkly dynamic float corner sticker */}
-            <div className="absolute top-1.5 right-1.5 bg-yellow-400 text-white p-1 rounded-full border border-white shadow-md animate-bounce">
-              <Sparkles className="w-3.5 h-3.5 fill-white" />
+            <div className="absolute top-2 right-2 bg-yellow-400 text-white p-1.5 rounded-full border border-white shadow-md animate-bounce">
+              <Sparkles className="w-4 h-4 fill-white" />
             </div>
           </div>
 
-          <div className="space-y-1.5 max-w-xl mx-auto">
+          <div className="space-y-2 max-w-xl mx-auto pt-2">
             <h1 className="text-3xl sm:text-4xl font-serif font-black text-slate-800 tracking-tight">
-              Please Maaf Kar Do Na, <span className="text-rose-600 underline decoration-rose-200">{config.gfName || "Cutie"}</span>! 😭
+              Please Maaf Kar Do Na, <span className="text-rose-600 underline decoration-rose-300">{config.gfName || "Alishaaa"}</span>! 😭💔
             </h1>
-            <p className="text-sm font-sans font-medium text-slate-500 leading-relaxed font-sans">
-              I made a silly mistake, and my universe is totally silent without you. This interactive love card is for you to unwrap and heal our differences.
+            <p className="text-sm font-sans font-medium text-slate-600 leading-relaxed">
+              1 mahina ho gaya bina baat kiye... {config.bfName || "Shivu"} is missing you deeply and created this special hub to ask for your forgiveness.
             </p>
           </div>
         </div>
 
-        {/* SECTION 1: THE LETTER ENVELOPE */}
-        <section className="mb-16">
+        {/* SECTION 1: SILENCE TRACKER & EMOTIONAL COUNTER */}
+        <section className="mb-12">
+          <SilenceTracker gfName={config.gfName} bfName={config.bfName} />
+        </section>
+
+        {/* SECTION 2: THE HEARTFELT LETTER ENVELOPE */}
+        <section className="mb-12">
           <EnvelopeLetter 
             gfName={config.gfName} 
             bfName={config.bfName} 
@@ -323,131 +344,44 @@ export default function App() {
           />
         </section>
 
-        {/* SECTION 2: THE PLAYFUL FORGIVENESS GAME */}
-        <section className="bg-white border-2 border-rose-100 rounded-3xl p-8 max-w-3xl mx-auto text-center shadow-xl relative overflow-hidden mb-16">
-          
-          {/* Aesthetic Background Grid lines */}
-          <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-rose-400 via-pink-400 to-rose-400" />
-          
-          <AnimatePresence mode="wait">
-            {!isForgiven ? (
-              <motion.div
-                key="not-forgiven"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                className="space-y-6"
-              >
-                <div className="flex justify-center">
-                  <div className="w-14 h-14 rounded-full bg-rose-50 flex items-center justify-center">
-                    <Heart className="w-7 h-7 text-rose-500 fill-rose-500 animate-pulse" />
-                  </div>
-                </div>
-
-                <div className="space-y-1.5">
-                  <h3 className="text-2xl font-serif font-black text-slate-800">
-                    Will you forgive your silly partner, {config.gfName}? 🥺
-                  </h3>
-                  <p className="text-xs text-slate-500 max-w-md mx-auto">
-                    Choose wisely! The 'No' button is highly defensive, and love has already won the ballot.
-                  </p>
-                </div>
-
-                {/* Game Button controls side by side */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 py-8 relative min-h-[140px]">
-                  
-                  {/* Real "YES" Forgivable Button */}
-                  <motion.button
-                    whileHover={{ scale: 1.15 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={handleForgiven}
-                    className="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white rounded-2xl font-sans font-bold text-lg shadow-lg shadow-rose-200 flex items-center justify-center gap-2 cursor-pointer relative overflow-hidden group"
-                  >
-                    {/* Pulsing inner gradient */}
-                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <span>Haan, bilkul Maaf kiya! 🥰</span>
-                  </motion.button>
-
-                  {/* Dodgeable "NO" Button with motion translate */}
-                  <motion.button
-                    animate={{ x: noBtnPosition.x, y: noBtnPosition.y }}
-                    transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                    onMouseEnter={dodgeNoButton}
-                    onTouchStart={dodgeNoButton}
-                    className="w-full sm:w-auto px-7 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-2xl font-sans font-semibold text-sm border border-slate-200 cursor-pointer whitespace-nowrap opacity-90"
-                  >
-                    {noBtnText}
-                  </motion.button>
-
-                </div>
-              </motion.div>
-            ) : (
-              /* TRIUMPH SUCCESS STAGE */
-              <motion.div
-                key="forgiven"
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                tabIndex={0}
-                className="space-y-6 py-6"
-              >
-                <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto border border-emerald-200">
-                  <CheckCircle className="w-10 h-10 text-emerald-500" />
-                </div>
-
-                <div className="space-y-2">
-                  <h3 className="text-3xl font-serif font-black text-emerald-600 animate-bounce">
-                    YAYY! I AM FORGIVEN! 🎉❤️
-                  </h3>
-                  <p className="text-sm font-sans font-medium text-slate-600 max-w-md mx-auto">
-                    Thank you so much, {config.gfName}! Your beautiful smile is my richest reward. I promise to be better, love you infinitely!
-                  </p>
-                </div>
-
-                {/* Secret apology signoff coupon unlocks */}
-                <div className="max-w-md mx-auto bg-emerald-50/50 p-5 rounded-2xl border border-emerald-100 text-left">
-                  <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest block font-mono">Unwrapped Reward Coupon</span>
-                  <h4 className="text-base font-bold text-slate-800 font-sans mt-0.5">🍫 Customized Love treats token!</h4>
-                  <p className="text-xs text-slate-500 leading-relaxed mt-1">
-                    Present this card to your partner to claim **Unlimited Cuddles, complete home dinner prep with favorite pasta, and any chocolate of your choice** immediately!
-                  </p>
-                  
-                  <div className="flex items-center justify-between border-t border-emerald-100 mt-4 pt-3.5 text-xs font-bold text-slate-400">
-                    <span>Coupon ID: SWEET-SORRY-99</span>
-                    <button
-                      onClick={resetForgiven}
-                      className="text-[10px] text-rose-500 hover:underline cursor-pointer flex items-center gap-1 font-bold"
-                    >
-                      <RefreshCw className="w-3 h-3" /> Play game again
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+        {/* SECTION 3: REUNION GAME & RECONCILIATION GAUGE */}
+        <section className="mb-12">
+          <ReunionGame
+            gfName={config.gfName}
+            bfName={config.bfName}
+            isForgiven={isForgiven}
+            onForgiven={handleForgiven}
+            onReset={resetForgiven}
+          />
         </section>
 
-        {/* SECTION 3: THE VIRTUAL GIFTS COMPONENT */}
-        <section className="mb-16">
+        {/* SECTION 4: UNBREAKABLE PROMISES */}
+        <section className="mb-12">
+          <PromisesUnfold gfName={config.gfName} bfName={config.bfName} />
+        </section>
+
+        {/* SECTION 5: VIRTUAL GIFTS */}
+        <section className="mb-12">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-serif font-black text-slate-800">
-              Interactive Gifts Of Love 🎁
+              Interactive Peace Offerings & Gifts 🎁
             </h2>
             <p className="text-xs text-slate-500 max-w-sm mx-auto mt-1">
-              Unwrap sweet chocolates, send cozy bear hugs, and bloom a deep ruby Shahi Rose to sweep her off her feet!
+              Unwrap sweet chocolates, send cozy bear hugs, and bloom a deep ruby Shahi Rose to melt her anger!
             </p>
           </div>
           
           <GiftShop gfName={config.gfName} />
         </section>
 
-        {/* SECTION 4: TIMELINE MEMORIES */}
-        <section className="mb-16">
+        {/* SECTION 6: TIMELINE MEMORIES */}
+        <section className="mb-12">
           <div className="text-center mb-10">
             <h2 className="text-2xl font-serif font-black text-slate-800">
               Humari Memory Lane 🗺️✨
             </h2>
             <p className="text-xs text-slate-500 max-w-sm mx-auto mt-1">
-              Looking back at where we started, why our love is worth more than any fight we ever have. 
+              Looking back at our journey, why our love is bigger than any fight or distance.
             </p>
           </div>
           
